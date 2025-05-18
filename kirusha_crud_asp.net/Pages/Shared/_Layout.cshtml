@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Appointments/Index" ? "active" : "")" asp-area="" asp-page="/Appointments/Index">Appointments</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Invoices/Index" ? "active" : "")" asp-area="" asp-page="/Invoices/Index">Invoices</a>
+                        </li>
                     </ul>
                 </div>
             </div>
