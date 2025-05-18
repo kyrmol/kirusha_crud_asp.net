@@ -1,0 +1,60 @@
+﻿@page
+@model kirusha_crud_asp.net.Pages.Appointments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment[0].treatment_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment[0].patient_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment[0].dentist_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment[0].datetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment[0].status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Appointment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.treatment_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.patient_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dentist_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.appointment_id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.appointment_id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.appointment_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
