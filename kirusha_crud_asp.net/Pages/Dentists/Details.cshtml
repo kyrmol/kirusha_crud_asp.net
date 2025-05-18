@@ -1,0 +1,73 @@
+﻿@page
+@model kirusha_crud_asp.net.Pages.Dentists.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Dentist</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.specialty)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.specialty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.name_first)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.name_first)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.name_middle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.name_middle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.name_last)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.name_last)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.street)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.street)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.house_number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.house_number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.postcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.postcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dentist.email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dentist.email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Dentist.dentist_id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

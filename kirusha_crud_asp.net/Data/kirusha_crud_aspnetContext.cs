@@ -15,5 +15,6 @@ namespace kirusha_crud_asp.net.Data
         }
 
         public DbSet<kirusha_crud_asp.net.Model.Patient> Patient { get; set; } = default!;
+        public DbSet<kirusha_crud_asp.net.Model.Dentist> Dentist { get; set; } = default!;
     }
 }
