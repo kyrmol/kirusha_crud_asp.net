@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using kirusha_crud_asp.net.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<kirusha_crud_aspnetContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("kirusha_crud_aspnetContext") ?? throw new InvalidOperationException("Connection string 'kirusha_crud_aspnetContext' not found.")));
 
 var app = builder.Build();
 

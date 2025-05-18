@@ -1,0 +1,88 @@
+﻿@page
+@model kirusha_crud_asp.net.Pages.Patients.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Patient.patient_id" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Patient.name_first" class="control-label"></label>
+                <input asp-for="Patient.name_first" class="form-control" />
+                <span asp-validation-for="Patient.name_first" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.name_middle" class="control-label"></label>
+                <input asp-for="Patient.name_middle" class="form-control" />
+                <span asp-validation-for="Patient.name_middle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Patient.name_last" class="control-label"></label>
+                <input asp-for="Patient.name_last" class="form-control" />
+                <span asp-validation-for="Patient.name_last" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Patient.date_of_birth" class="control-label"></label>
+                <input asp-for="Patient.date_of_birth" class="form-control" />
+                <span asp-validation-for="Patient.date_of_birth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.street" class="control-label"></label>
+                <input asp-for="Patient.street" class="form-control" />
+                <span asp-validation-for="Patient.street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.house_number" class="control-label"></label>
+                <input asp-for="Patient.house_number" class="form-control" />
+                <span asp-validation-for="Patient.house_number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.postcode" class="control-label"></label>
+                <input asp-for="Patient.postcode" class="form-control" />
+                <span asp-validation-for="Patient.postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.phone" class="control-label"></label>
+                <input asp-for="Patient.phone" class="form-control" />
+                <span asp-validation-for="Patient.phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.email" class="control-label"></label>
+                <input asp-for="Patient.email" class="form-control" />
+                <span asp-validation-for="Patient.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.allergies" class="control-label"></label>
+                <input asp-for="Patient.allergies" class="form-control" />
+                <span asp-validation-for="Patient.allergies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.notes" class="control-label"></label>
+                <input asp-for="Patient.notes" class="form-control" />
+                <span asp-validation-for="Patient.notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
