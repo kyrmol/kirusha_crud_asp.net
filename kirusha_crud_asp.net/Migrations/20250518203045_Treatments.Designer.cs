@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using kirusha_crud_asp.net.Data;
 
@@ -11,9 +12,11 @@ using kirusha_crud_asp.net.Data;
 namespace kirusha_crud_asp.net.Migrations
 {
     [DbContext(typeof(kirusha_crud_aspnetContext))]
-    partial class kirusha_crud_aspnetContextModelSnapshot : ModelSnapshot
+    [Migration("20250518203045_Treatments")]
+    partial class Treatments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
