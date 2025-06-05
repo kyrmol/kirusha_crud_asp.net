@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using kirusha_crud_asp.net.Data;
+using kirusha_crud_asp.net.Migrations;
+using kirusha_crud_asp.net.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using kirusha_crud_asp.net.Data;
-using kirusha_crud_asp.net.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace kirusha_crud_asp.net.Pages.Appointments
 {
@@ -23,7 +24,12 @@ namespace kirusha_crud_asp.net.Pages.Appointments
 
         public async Task OnGetAsync()
         {
-            Appointment = await _context.Appointment.ToListAsync();
+            Appointment = await _context.Appointment
+                .Include(a => a.Patient)
+                .Include(x => x.Treatment)
+                .Include(x => x.Dentist)
+                .ToListAsync();
+
         }
     }
 }

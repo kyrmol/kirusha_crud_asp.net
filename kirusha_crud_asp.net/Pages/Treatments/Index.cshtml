@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Treatment[0].treatment_id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Treatment[0].type)
             </th>
             <th>
@@ -28,6 +31,9 @@
     <tbody>
 @foreach (var item in Model.Treatment) {
         <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.treatment_id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.type)
             </td>

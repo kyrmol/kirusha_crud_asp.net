@@ -1,44 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using kirusha_crud_asp.net.Data;
+using kirusha_crud_asp.net.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using kirusha_crud_asp.net.Data;
-using kirusha_crud_asp.net.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace kirusha_crud_asp.net.Pages.Appointments
 {
     public class CreateModel : PageModel
     {
-        private readonly kirusha_crud_asp.net.Data.kirusha_crud_aspnetContext _context;
+        private readonly kirusha_crud_aspnetContext _context;
 
-        public CreateModel(kirusha_crud_asp.net.Data.kirusha_crud_aspnetContext context)
+        public CreateModel(kirusha_crud_aspnetContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public Appointment Appointment { get; set; }
+
+        public SelectList Patients { get; set; }
+        public SelectList Dentists { get; set; }
+
+        public async Task<IActionResult> OnGetAsync()
         {
+            var patients = await _context.Patient.ToListAsync();
+            var dentists = await _context.Dentist.ToListAsync();
+
+            Patients = new SelectList(patients, "patient_id", "name_first");
+            Dentists = new SelectList(dentists, "dentist_id", "name_first");
+
             return Page();
         }
 
-        [BindProperty]
-        public Appointment Appointment { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
+                // Логируем полученные данные
+                Console.WriteLine($"treatment_id: {Appointment?.treatment_id}");
+                Console.WriteLine($"patient_id: {Appointment?.patient_id}");
+                Console.WriteLine($"dentist_id: {Appointment?.dentist_id}");
+                Console.WriteLine($"datetime: {Appointment?.datetime}");
+                Console.WriteLine($"status: {Appointment?.status}");
+
+                // Простая проверка - есть ли данные
+                if (Appointment != null)
+                {
+                    _context.Appointment.Add(Appointment);
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Показываем полную ошибку включая inner exception
+                var fullError = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    fullError += " Inner: " + ex.InnerException.Message;
+                    if (ex.InnerException.InnerException != null)
+                    {
+                        fullError += " Inner2: " + ex.InnerException.InnerException.Message;
+                    }
+                }
+
+                Console.WriteLine($"Полная ошибка: {fullError}");
+                ModelState.AddModelError("", $"Ошибка: {fullError}");
             }
 
-            _context.Appointment.Add(Appointment);
-            await _context.SaveChangesAsync();
+            // Если что-то не так, перезагружаем списки и возвращаем страницу
+            var patients = await _context.Patient.ToListAsync();
+            var dentists = await _context.Dentist.ToListAsync();
 
-            return RedirectToPage("./Index");
+            Patients = new SelectList(patients, "patient_id", "name_first");
+            Dentists = new SelectList(dentists, "dentist_id", "name_first");
+
+            return Page();
         }
     }
 }

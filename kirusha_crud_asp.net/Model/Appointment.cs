@@ -11,14 +11,18 @@ namespace kirusha_crud_asp.net.Model
         [Required] // Поле обязательно
         [ForeignKey("Treatment")] // Внешний ключ для таблицы Treatment
         public int treatment_id { get; set; } // ID лечения
+        public Treatment Treatment { get; set; }
 
         [Required] // Поле обязательно
         [ForeignKey("Patient")] // Внешний ключ для таблицы Patient
         public int patient_id { get; set; } // ID пациента
+        public Patient Patient { get; set; }
+
 
         [Required] // Поле обязательно
         [ForeignKey("Dentist")] // Внешний ключ для таблицы Dentist
         public int dentist_id { get; set; } // ID стоматолога
+        public Dentist Dentist { get; set; } // Связь с моделью Dentist
 
         [Required] // Поле обязательно
         public DateTime datetime { get; set; } // Дата и время записи

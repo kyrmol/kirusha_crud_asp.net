@@ -10,12 +10,29 @@ builder.Services.AddDbContext<kirusha_crud_aspnetContext>(options =>
 
 var app = builder.Build();
 
+
+//services.Configure<CookiePolicyOptions>(options =>
+//{
+//    options.CheckConsentNeeded = context => false; // Для разработки
+//    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+//    options.Secure = CookieSecurePolicy.SameAsRequest; // Вместо Always
+//});
+
+//services.ConfigureApplicationCookie(options =>
+//{
+//    options.SameSite = SameSiteMode.Lax;
+//    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+//});
+//}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+
+
 }
 
 app.UseHttpsRedirection();

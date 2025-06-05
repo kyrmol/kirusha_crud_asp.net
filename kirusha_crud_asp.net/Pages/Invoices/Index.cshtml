@@ -14,6 +14,12 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Invoice[0].invoice_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoice[0].appointment_id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Invoice[0].date)
             </th>
             <th>
@@ -31,6 +37,12 @@
     <tbody>
 @foreach (var item in Model.Invoice) {
         <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.invoice_id)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.appointment_id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.date)
             </td>

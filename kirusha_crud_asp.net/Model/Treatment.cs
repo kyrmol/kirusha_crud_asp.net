@@ -7,6 +7,9 @@ namespace kirusha_crud_asp.net.Model
         [Key] 
         public int treatment_id { get; set; } // Уникальный идентификатор лечения
 
+      
+
+
         [Required] 
         [StringLength(100)] 
         public string type { get; set; } = string.Empty; // Тип лечения

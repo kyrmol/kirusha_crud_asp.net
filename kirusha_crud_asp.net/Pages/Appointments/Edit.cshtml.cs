@@ -13,15 +13,18 @@ namespace kirusha_crud_asp.net.Pages.Appointments
 {
     public class EditModel : PageModel
     {
-        private readonly kirusha_crud_asp.net.Data.kirusha_crud_aspnetContext _context;
+        private readonly kirusha_crud_aspnetContext _context;
 
-        public EditModel(kirusha_crud_asp.net.Data.kirusha_crud_aspnetContext context)
+        public EditModel(kirusha_crud_aspnetContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Appointment Appointment { get; set; } = default!;
+        public Appointment Appointment { get; set; }
+
+        public SelectList Patients { get; set; }
+        public SelectList Dentists { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,43 +33,80 @@ namespace kirusha_crud_asp.net.Pages.Appointments
                 return NotFound();
             }
 
-            var appointment =  await _context.Appointment.FirstOrDefaultAsync(m => m.appointment_id == id);
+            var appointment = await _context.Appointment.FirstOrDefaultAsync(m => m.appointment_id == id);
             if (appointment == null)
             {
                 return NotFound();
             }
+
             Appointment = appointment;
+
+            // Загружаем списки для селектов
+            var patients = await _context.Patient.ToListAsync();
+            var dentists = await _context.Dentist.ToListAsync();
+
+            Patients = new SelectList(patients, "patient_id", "name_first", Appointment.patient_id);
+            Dentists = new SelectList(dentists, "dentist_id", "name_first", Appointment.dentist_id);
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(Appointment).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                // Логируем данные
+                Console.WriteLine($"Editing appointment_id: {Appointment?.appointment_id}");
+                Console.WriteLine($"treatment_id: {Appointment?.treatment_id}");
+                Console.WriteLine($"patient_id: {Appointment?.patient_id}");
+                Console.WriteLine($"dentist_id: {Appointment?.dentist_id}");
+                Console.WriteLine($"datetime: {Appointment?.datetime}");
+                Console.WriteLine($"status: {Appointment?.status}");
+
+                if (Appointment != null)
+                {
+                    _context.Attach(Appointment).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
+                Console.WriteLine($"Concurrency error: {ex.Message}");
                 if (!AppointmentExists(Appointment.appointment_id))
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError("", "Запись была изменена другим пользователем. Попробуйте еще раз.");
                 }
             }
+            catch (Exception ex)
+            {
+                // Подробное логирование ошибки
+                var fullError = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    fullError += " Inner: " + ex.InnerException.Message;
+                    if (ex.InnerException.InnerException != null)
+                    {
+                        fullError += " Inner2: " + ex.InnerException.InnerException.Message;
+                    }
+                }
 
-            return RedirectToPage("./Index");
+                Console.WriteLine($"Edit error: {fullError}");
+                ModelState.AddModelError("", $"Ошибка: {fullError}");
+            }
+
+            // Если ошибка, перезагружаем списки
+            var patients = await _context.Patient.ToListAsync();
+            var dentists = await _context.Dentist.ToListAsync();
+
+            Patients = new SelectList(patients, "patient_id", "name_first", Appointment?.patient_id);
+            Dentists = new SelectList(dentists, "dentist_id", "name_first", Appointment?.dentist_id);
+
+            return Page();
         }
 
         private bool AppointmentExists(int id)
