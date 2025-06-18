@@ -21,14 +21,19 @@ namespace kirusha_crud_asp.net.Pages.Appointments
 
         public SelectList Patients { get; set; }
         public SelectList Dentists { get; set; }
+        
+        
 
         public async Task<IActionResult> OnGetAsync()
         {
             var patients = await _context.Patient.ToListAsync();
             var dentists = await _context.Dentist.ToListAsync();
+          
 
             Patients = new SelectList(patients, "patient_id", "name_first");
             Dentists = new SelectList(dentists, "dentist_id", "name_first");
+           
+
 
             return Page();
         }
@@ -72,9 +77,11 @@ namespace kirusha_crud_asp.net.Pages.Appointments
             // Если что-то не так, перезагружаем списки и возвращаем страницу
             var patients = await _context.Patient.ToListAsync();
             var dentists = await _context.Dentist.ToListAsync();
+          
 
             Patients = new SelectList(patients, "patient_id", "name_first");
             Dentists = new SelectList(dentists, "dentist_id", "name_first");
+          
 
             return Page();
         }

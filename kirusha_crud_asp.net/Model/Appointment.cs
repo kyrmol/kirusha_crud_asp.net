@@ -5,30 +5,30 @@ namespace kirusha_crud_asp.net.Model
 {
     public class Appointment
     {
-        [Key] // Указывает, что это первичный ключ
-        public int appointment_id { get; set; } // Уникальный идентификатор записи
+        [Key] 
+        public int appointment_id { get; set; } 
 
-        [Required] // Поле обязательно
-        [ForeignKey("Treatment")] // Внешний ключ для таблицы Treatment
-        public int treatment_id { get; set; } // ID лечения
+        [Required] 
+        [ForeignKey("Treatment")] 
+        public int treatment_id { get; set; } 
         public Treatment Treatment { get; set; }
 
-        [Required] // Поле обязательно
-        [ForeignKey("Patient")] // Внешний ключ для таблицы Patient
-        public int patient_id { get; set; } // ID пациента
+        [Required] 
+        [ForeignKey("Patient")] 
+        public int patient_id { get; set; } 
         public Patient Patient { get; set; }
 
 
-        [Required] // Поле обязательно
-        [ForeignKey("Dentist")] // Внешний ключ для таблицы Dentist
-        public int dentist_id { get; set; } // ID стоматолога
-        public Dentist Dentist { get; set; } // Связь с моделью Dentist
+        [Required] 
+        [ForeignKey("Dentist")] 
+        public int dentist_id { get; set; } 
+        public Dentist Dentist { get; set; } 
 
-        [Required] // Поле обязательно
-        public DateTime datetime { get; set; } // Дата и время записи
+        [Required] 
+        public DateTime datetime { get; set; }
 
-        [Required] // Поле обязательно
-        [StringLength(50)] // Ограничение длины строки
-        public string status { get; set; } = string.Empty; // Статус записи (например, "Scheduled", "Completed", "Canceled")
+        [Required] 
+        [StringLength(50)] 
+        public string status { get; set; } = string.Empty; 
     }
 }

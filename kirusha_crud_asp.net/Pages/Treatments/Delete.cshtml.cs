@@ -50,14 +50,24 @@ namespace kirusha_crud_asp.net.Pages.Treatments
             }
 
             var treatment = await _context.Treatment.FindAsync(id);
-            if (treatment != null)
+            if (treatment == null)
             {
-                Treatment = treatment;
-                _context.Treatment.Remove(Treatment);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Treatment.Remove(treatment);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException)
+            {
+                // Сообщение для пользователя
+                ModelState.AddModelError(string.Empty, "Cannot be deleted (relations with other table).");
+                Treatment = treatment; // чтобы Razor-страница могла отобразить данные
+                return Page(); // Остаёмся на странице удаления
+            }
         }
     }
 }

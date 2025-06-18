@@ -40,6 +40,21 @@ namespace kirusha_crud_asp.net.Pages.Invoices
                 Invoice = invoice;
             }
             return Page();
+
+            try
+            {
+                _context.Invoice.Remove(invoice);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException ex)
+            {
+                // Проверяем, связано ли исключение с ограничением внешнего ключа
+                ModelState.AddModelError(string.Empty, "Невозможно удалить запись, так как она используется в других данных (например, в приёмах).");
+                // Можно также залогировать ex для диагностики
+                return Page();
+            }
+
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)

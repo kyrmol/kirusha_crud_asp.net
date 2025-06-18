@@ -50,14 +50,24 @@ namespace kirusha_crud_asp.net.Pages.Appointments
             }
 
             var appointment = await _context.Appointment.FindAsync(id);
-            if (appointment != null)
+            if (appointment == null)
             {
-                Appointment = appointment;
-                _context.Appointment.Remove(Appointment);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Appointment.Remove(appointment);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException)
+            {
+                // Сообщение для пользователя
+                ModelState.AddModelError(string.Empty, "Table cannot be deleted (relations with other tables).");
+                Appointment = appointment; // чтобы Razor-страница могла отобразить данные
+                return Page(); // Остаёмся на странице удаления
+            }
         }
     }
 }

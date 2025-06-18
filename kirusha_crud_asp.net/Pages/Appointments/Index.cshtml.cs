@@ -1,4 +1,4 @@
-﻿using kirusha_crud_asp.net.Data;
+﻿    using kirusha_crud_asp.net.Data;
 using kirusha_crud_asp.net.Migrations;
 using kirusha_crud_asp.net.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,6 @@ namespace kirusha_crud_asp.net.Pages.Appointments
         {
             Appointment = await _context.Appointment
                 .Include(a => a.Patient)
-                .Include(x => x.Treatment)
                 .Include(x => x.Dentist)
                 .ToListAsync();
 
