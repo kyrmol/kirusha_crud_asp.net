@@ -21,18 +21,19 @@ namespace kirusha_crud_asp.net.Pages.Appointments
 
         public SelectList Patients { get; set; }
         public SelectList Dentists { get; set; }
-        
-        
+        public SelectList Treatments { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var patients = await _context.Patient.ToListAsync();
             var dentists = await _context.Dentist.ToListAsync();
-          
+            var treatments = await _context.Treatment.ToListAsync();
+
 
             Patients = new SelectList(patients, "patient_id", "name_first");
             Dentists = new SelectList(dentists, "dentist_id", "name_first");
-           
+            Treatments = new SelectList(treatments, "treatment_id", "type");
+
 
 
             return Page();

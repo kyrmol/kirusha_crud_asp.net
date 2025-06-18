@@ -21,8 +21,8 @@ namespace kirusha_crud_asp.net.Model
 
         [Required] 
         [ForeignKey("Dentist")] 
-        public int dentist_id { get; set; } 
-        public Dentist Dentist { get; set; } 
+        public int? dentist_id { get; set; } 
+        public Dentist? Dentist { get; set; } 
 
         [Required] 
         public DateTime datetime { get; set; }

@@ -16,7 +16,9 @@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Appointment.treatment_id" class="control-label"></label>
-                <input asp-for="Appointment.treatment_id" class="form-control" />
+                <select asp-for="Appointment.treatment_id" asp-items="Model.Treatments" class="form-control">
+                    <option value="">-- Select patient --</option>
+                </select>
                 <span asp-validation-for="Appointment.treatment_id" class="text-danger"></span>
             </div>
             <div class="form-group">

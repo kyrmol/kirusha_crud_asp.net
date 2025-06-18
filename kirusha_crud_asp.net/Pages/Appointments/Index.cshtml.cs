@@ -27,6 +27,7 @@ namespace kirusha_crud_asp.net.Pages.Appointments
             Appointment = await _context.Appointment
                 .Include(a => a.Patient)
                 .Include(x => x.Dentist)
+                .Include(x => x.Treatment)  
                 .ToListAsync();
 
         }

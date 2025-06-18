@@ -47,7 +47,7 @@
                     @item.Patient?.name_first
             </td>
             <td>
-                    @item.Dentist?.name_first
+                    @(item.Dentist != null ? item.Dentist.name_first : "Cannot be reached")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.datetime)
